@@ -30,11 +30,11 @@ BARE is a "backronym" for the following components of a software artchitecture:
 ![bare diagram](./docs/bare_architecture.jpg "BARE Architecture") 
 
 Each of these will be discussed in detail below, but not in order. We'll start with the most important concept, and move on from there.
-It is important to note, that though there are some reference implementations like [https://github.com/claytongulick/applicationstate](ApplicationState), the BARE architecture is meant to be language and implementation agnostic.
+It is important to note, that though there are some reference implementations like [ApplicationState](https://github.com/claytongulick/applicationstate), the BARE architecture is meant to be language and implementation agnostic.
 
 ## Application State
 
-[https://github.com/claytongulick/applicationstate](ApplicationState), as its name implies, is the component of a central component who's only responsibility is maintaining state for an application. This state can be local, remote or isomorphic, but the key insight is that all state for any application can be represented as a directed acyclic graph (DAG). 
+[ApplicationState](https://github.com/claytongulick/applicationstate), as its name implies, is the component of a central component who's only responsibility is maintaining state for an application. This state can be local, remote or isomorphic, but the key insight is that all state for any application can be represented as a directed acyclic graph (DAG). 
 
 A very simple example of this (borrowed from the ApplicationState repo) can be seen here:
 
@@ -60,11 +60,11 @@ This is one of the lessons Google learned with Firebase and the serverless archi
 
 ## Encapsulate
 
-An encapsulate is an *isolated* component that has no dependencies other than other encapsulate components. In general, encapulate components (as their name implies) are completely encapsulated pieces of discrete login with well defined inputs and outputs. There are some conceivable examples where it would be appropriate for an encapsulate to monitor application state, but this shouldn't be a primary function and should be the exception. In general, monitoring Application State should be left to components in Binding or Rendering (discussed later).
+An encapsulate is an *isolated* component that has no dependencies other than other encapsulate components. In general, encapulate components (as their name implies) are completely encapsulated pieces of discrete logic with well defined inputs and outputs. There are some conceivable examples where it would be appropriate for an encapsulate to monitor application state, but this shouldn't be a primary function and should be the exception. In general, monitoring Application State should be left to components in Binding or Rendering (discussed later).
 
 Encapsulates are intended to be components that implement specific logic or rules that are applicable regardless of the rendering technology. A concrete example of this is building an appliction in JavaScript that targets Web Components/polymer, React Native, and Windows Desktop. JavaScript is a shared language between these platforms, so as much core functionality as possible should be architected into encapsulate components so that the only differences in code base are those in Binding and Rendering. Application State itself is considered an encapsulate, since it is a completely self-contained, isolated component that performs specific functionality without any external dependencies. 
 
-In the reference implementation at [https://github.com/claytongulick/applicationstate](ApplicationState) this is demonstrated by ensuring that state persistence and loading are [https://github.com/claytongulick/applicationstate-plugin-indexeddb](implemented via plugins), since the specific mechanism that is used to persist and load the state graph is platform dependent (indexeddb for browser, NativeStorage for React Native). The plugins themselves are an example of components that should be considered "Binding" components, since they bind isolated encapsulate components to concrete Rendering, or platform, components.
+In the reference implementation at [ApplicationState](https://github.com/claytongulick/applicationstate) this is demonstrated by ensuring that state persistence and loading are [implemented via plugins](https://github.com/claytongulick/applicationstate-plugin-indexeddb), since the specific mechanism that is used to persist and load the state graph is platform dependent (indexeddb for browser, NativeStorage for React Native). The plugins themselves are an example of components that should be considered "Binding" components, since they bind isolated encapsulate components to concrete Rendering, or platform, components
 
 It is broken out as a separate component of the BARE architecture due to its importance to the overall architecture.
 
