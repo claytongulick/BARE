@@ -66,7 +66,7 @@ Encapsulates are intended to be components that implement specific logic or rule
 
 In the reference implementation at [ApplicationState](https://github.com/claytongulick/applicationstate) this is demonstrated by ensuring that state persistence and loading are [implemented via plugins](https://github.com/claytongulick/applicationstate-plugin-indexeddb), since the specific mechanism that is used to persist and load the state graph is platform dependent (indexeddb for browser, NativeStorage for React Native). The plugins themselves are an example of components that should be considered "Binding" components, since they bind isolated encapsulate components to concrete Rendering, or platform, components
 
-It is broken out as a separate component of the BARE architecture due to its importance to the overall architecture.
+Application State is an encapulate broken out as a separate layer of the BARE architecture due to its importance to the overall architecture.
 
 ## Rendering
 
@@ -77,6 +77,8 @@ Rendering components are generally the easiest to identify because they are comp
 ## Binding
 
 Binding components are the "glue" between encapsulate components and rendering components. Some very simple applications will find that these components are not necessary, as such functionality can be handled directly by the rendering component. As applications grow in size, and portability between platforms becomes more of a consideration, having binding components acting as an intermediary between concrete rendering components and isolated encapsulate components becomes more desirable.
+
+This is one of the core differences in philosophy between BARE and other frameworks/architectures. With BARE, the layers are guidelines, and the assumption is that the developer is smart enough to know when to follow and when to break the rules. Any implementation of BARE *must* take this into consideration and *must not* enforce the separation of layers. Enforced separation of layers is one of the things that causes major headaches and complications with other architectures. BARE is unopinionated, it just has some ideas about what might help you with your application architecture.
 
 Binding components can be considered an "interface" or "api" for the platform. When porting an application to another platform that supports the same language, the task of the developer is *vastly* simplified by only needing to reimplement the specific binding components. In many cases there will be similar rendering components on the various platforms that can be used by binding components with little or no modification (checkboxes, select lists, etc...).
 
@@ -101,6 +103,6 @@ Would you take a recruiter's call to maintain an ASP.net 1.0 Entity Framework ap
 
 In some cases, obsolescence in unavoidable - take Adobe Flex, for example. For all its flaws, Flash was the best thing going for SPAs for a long time. It doesn't really matter what framework you chose with Flex, your investment is pretty much dead at this point. Consider, though, if you'd followed the BARE architecture with a big Flex app. Well, ES6 isn't *that* different from AS3. Those isolate classes would be simple to transpile to JS. Then you're left with Binding and Rendering to reimplement, and sure, that's work, but you have a pretty clear task list - a discrete set of components to implement and a binding layer to handle communication. That's a whole lot easier than if you'd done a ton of two-way bound components using the technology-of-the-week.
 
-Certain language look like they're going to be around a while. C++, Java, JavaScript, C# - they're all going to be around for at least the next ten years, and that's all way can really hope for as far as longevity for an application. If we use simple constructs, stick with the vanilla language and don't escape core principles we can develop software that will be flexible and maintainable far into the future.
+Certain language look like they're going to be around a while. C++, Java, JavaScript, C# - they're all going to be around for at least the next ten years, and that's all we can really hope for as far as longevity for an application (though, horrifically, I still have 20+ year old VB code running in production!). If we use simple constructs, stick with the vanilla language and don't escape core principles we can develop software that will be flexible and maintainable far into the future.
 
 I'd love to hear what you think, please open an issue and let's discuss!
