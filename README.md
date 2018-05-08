@@ -52,6 +52,12 @@ Another advantage of this sort of state graph is state *portability*. As with th
 
 Additionally, local Application State can be viewed isomorphically as nothing more than a branch of a much larger state graph that encompases all users and application tasks. State can be selectively shared across subsets of users and applications.
 
+### Application State is not data!
+
+Conceptually, the information stored in Application State should be thought of as the current running state of an application "frozen" in time. It is not intended to store, for example, relational data, or to be a long term durable data store. While it's fine to have documents stored in Application State, these should be limited to the current working set of the application.
+
+This is one of the lessons Google learned with Firebase and the serverless architecture, in an attempt to have a graph represent both state and data, they ran into problems with scalability, performance and analytics. Application State is *not* intended to be a replacements for an RDBMS or a document store.
+
 ## Encapsulate
 
 An encapsulate is an *isolated* component that has no dependencies other than other encapsulate components. In general, encapulate components (as their name implies) are completely encapsulated pieces of discrete login with well defined inputs and outputs. There are some conceivable examples where it would be appropriate for an encapsulate to monitor application state, but this shouldn't be a primary function and should be the exception. In general, monitoring Application State should be left to components in Binding or Rendering (discussed later).
