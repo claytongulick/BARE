@@ -44,7 +44,7 @@ This component is responsible for maintaining state in the application, and for 
 
 Application State is the central "heartbeat" of the application. It is the driver for all user interface changes, IO communication, and the application lifecycle.
 
-An example if this is the "location" node in the above diagram. By monitoring "app.location" a stage component can trigger a transition to a different screen. This can go n-levels deep, for example, a tabbed view could have a stage component that listens to "app.screen.tabbed_view.location". The primary stage component navigates to the tabbed view via a change to "app.location" and the current displayed tab is rendered by the sub-stage component listening for changes to "app.screen.tabbed_view.location".
+An example of this is the "location" node in the above diagram. By monitoring "app.location" a stage component can trigger a transition to a different screen. This can go n-levels deep, for example, a tabbed view could have a stage component that listens to "app.screen.tabbed_view.location". The primary stage component navigates to the tabbed view via a change to "app.location" and the current displayed tab is rendered by the sub-stage component listening for changes to "app.screen.tabbed_view.location".
 
 One advantage of representing state in this way is ease of persistence and loading. In applications where durability across restarts is necessary (mobile applications, for example) the Application State graph can be easily stored to disk and loaded after restart, triggering the relevant listeners and restoring state to the precise point where the application was terminating.
 
@@ -73,6 +73,8 @@ Application State is an encapulate broken out as a separate layer of the BARE ar
 Whether it is rendering to a file, a desktop/mobile screen, audio, or the DOM in a browser, any component that has a specific dependency on the platform and is responsible for outputting the results of state changes to the user, is considered a part of the "Rendering" layer. For a UI, these will be both simple components like a checkbox or text input field, and aggregate components like a login screen, or navigation menu. 
 
 Rendering components are generally the easiest to identify because they are completely dependent on the platform. Note, a rendering component is *not* limited to just UI display. Rendering to a file, an audio device or a GPIO pin are all valid examples of the responsibilities of a rendering component.
+
+Also, it is important to note that BARE doesn't have an opinion at all about what technology, library or framework should be used for rendering. It is completely normal, for example, to use React Native as a rendering layer for a native mobile app with a BARE architecture. W3C, it should be pointed out, has sort of [picked a winner](https://github.com/w3c/webcomponents) for components in the DOM, but whether to use vanilla Web Components, [Polymer](https://www.polymer-project.org/) (personal recommendation is to wait until v3), [React](https://reactjs.org/), [Vue](https://vuejs.org/) or something else, is completely up to the developer. In fact, one of the main ideas behind BARE is that the Rendering layer is disposable - there will be something cooler next week. Why rewrite your whole app when that happens? Instead, let's plan for it, embrace it, and keep the secret sauce isolated.
 
 ## Binding
 
