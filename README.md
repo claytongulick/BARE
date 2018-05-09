@@ -14,7 +14,9 @@ Separate, isolated components are a key characteristic of maintainable code. Wit
 
 Recently, software architecture has moved towards "reactive" or one-way component communication. This is a great example of reducing complexity and dependencies between components. Most developers who have written software in a "two-way" databound framework can attest to the ease with which unintented effects can be triggered by simple data changes (a great example of this is Adobe Flex).
 
-There are many implementations of reactive frameworks, and developers have been following this principle long before the term "reactive" was coined by the popular React framework. These frameworks vary in approachability, complexity and scalability.
+There are many implementations of reactive frameworks, and developers have been following this principle long before the term "reactive" was coined by the popular React framework. These frameworks vary in approachability, complexity and scalability. BARE recommends following this one-way, reactive approach.
+
+Another trend we see, especially on the web, is a move towards becoming "frameworkless", instead opting to implement specific useful functionality that can be shared between projects, regardless of framework. Compare Polymer 1 to Polymer 3, for example. Or Angular 1 to Redux/React - Redux can be used to manage flow and state regardless of view, and React/React Native can be used as a rendering layer independently with just about any architecture. This trend mirrors the \*nix philosophy of "do one thing well and do it well" and glue small pieces together into larger pieces. This is one of the core principles behind the small, isolated components and discrete layers in BARE.
 
 The BARE architecture is an attempt to evaluate and distill core principles from the lessons learned over the years in framework evolution, with a primary focus on simplicity. BARE is language and technology agnostic, though for now the reference examples are written in JavaScript.
 
